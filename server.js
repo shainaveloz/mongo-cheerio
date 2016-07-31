@@ -36,6 +36,25 @@ app.get('/', function(req, res){
 
 app.get('/scraper', function(req, res){
 
+    //run request to grab the site's data
+    request('http://www.recode.net/', function(error, response, html){
+
+        //load html into cheerio
+        var $ = cheerio.load(html);
+
+        var result = [];
+
+        $('h2.c-entry-box__title').each(function(i, element){
+            var title = $(this).text();
+            var link = $(element).parent().attr('href');
+            result.push({
+                Title: title,
+                Link: link
+            });
+        });
+
+        res.send(result);
+    });
 });
 
 // listen on port 3000
