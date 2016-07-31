@@ -46,7 +46,7 @@ app.get('/scraper', function(req, res){
 
         $('h2.c-entry-box__title').each(function(i, element){
             var title = $(this).text();
-            var link = $(element).parent().attr('href');
+            var link = $(element).children().attr('href');
             result.push({
                 Title: title,
                 Link: link
