@@ -4,6 +4,10 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
 //requiring request and cheerio
 var request = require('request');
 var cheerio = require('cheerio');
@@ -31,7 +35,7 @@ db.on('error', function(err) {
 
 //Main route
 app.get('/', function(req, res){
-    res.send('Hello! Welcome to Tech Insider!');
+    res.render('index');
 });
 
 app.get('/scraper', function(req, res){
@@ -47,15 +51,27 @@ app.get('/scraper', function(req, res){
         $('h2.c-entry-box__title').each(function(i, element){
             var title = $(this).text();
             var link = $(element).children().attr('href');
+            var img = $('#c-entry-box_image').children().attr('src');
+            var comment = $('<form>');
             result.push({
                 Title: title,
-                Link: link
+                Link: link,
+                img: img
             });
         });
 
+        //db.scrapedData.update({"Title": }, {$set: {"Title": [Title]}, {"Link": [Link]}});
         res.send(result);
     });
 });
+
+//posting data to mongo db
+app.post('/submit', function(req, res){
+    var article = req.body;
+
+
+});
+
 
 // listen on port 3000
 app.listen(3000, function() {
