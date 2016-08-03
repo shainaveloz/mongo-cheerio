@@ -52,15 +52,14 @@ app.get('/scraper', function(req, res){
             var title = $(this).text();
             var link = $(element).children().attr('href');
             var img = $('#c-entry-box_image').children().attr('src');
-            var comment = $('<form>');
+            //var comment = $('<form>');
             result.push({
                 Title: title,
-                Link: link,
-                img: img
+                Link: link
             });
         });
 
-        //db.scrapedData.update({"Title": }, {$set: {"Title": [Title]}, {"Link": [Link]}});
+        //db.scrapedData.update({"Title": [Title]}, {$set: {"Title": [Title]}, {"Link": [Link]}});
         res.send(result);
     });
 });
@@ -71,6 +70,10 @@ app.post('/submit', function(req, res){
 
 
 });
+
+app.get('/delete', function(req, res){
+
+})
 
 
 // listen on port 3000

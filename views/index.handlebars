@@ -1,4 +1,13 @@
 <div class="col-md-4">
+    <ul>
+        {{{# each h2}}}
+        <li>
+            <p><span class="label">Title:</span> {{this.Title}}</p>
+            <p><span class="label">Link:</span> {{this.Link}}</p>
+        </l>
+    {{/each}}
+    </ul>
+
 
     <div class="row">
         <div class="col-md-4">
@@ -9,7 +18,13 @@
                 <button id="submitComment" type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
 
             </form>
-        </div>
 
+            <form action="/delete?_method=DELETE" method="POST">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button type="submit">Delete</button>
+            </form>
+
+            <a href="//{{this.id}}" action="/update?_method=PUT" method="POST">Update Your Comment!</a>
+        </div>
     </div>
 </div>
