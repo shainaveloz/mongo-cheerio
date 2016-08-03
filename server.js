@@ -27,6 +27,12 @@ var collections = ["scrapedData"];
 
 // Hook mongojs configuration to the db variable
 var db = mongojs(databaseUrl, collections);
+var databaseUri = 'mongodb://localhost/scraper';
+    if (process.env.MONGODB_URI){
+        mongoose.connect(process.env.MONGODB_URI);
+    } else{
+        mongoose.connect
+    }
 
 //makes sure that any errors encountered is logged
 db.on('error', function(err) {
